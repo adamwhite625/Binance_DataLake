@@ -1,0 +1,52 @@
+# Security
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Airflow
+logs/
+airflow.db
+airflow.cfg
+airflow-webserver.pid
+standalone_admin_password.txt
+
+# dbt
+target/
+dbt_modules/
+dbt_packages/
+logs/
+.dbt/
+
+# Data Files (Avoid committing raw data)
+*.csv
+*.parquet
+*.json
+*.sqlite
+*.db
+!metadata.json # Keep metadata if needed
+
+# Docker
+.docker/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
