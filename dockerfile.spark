@@ -4,11 +4,20 @@ USER 0
 
 RUN install_packages curl
 
-# Download jars
+# Download jars (Kafka, MinIO/S3, PostgreSQL)
 RUN cd /opt/bitnami/spark/jars && \
-    curl -L -O https://repo.maven.apache.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.4.1/spark-sql-kafka-0-10_2.12-3.4.1.jar && \
-    curl -L -O https://repo.maven.apache.org/maven2/org/apache/spark/spark-token-provider-kafka-0-10_2.12/3.4.1/spark-token-provider-kafka-0-10_2.12-3.4.1.jar && \
-    curl -L -O https://repo.maven.apache.org/maven2/org/apache/kafka/kafka-clients/3.4.1/kafka-clients-3.4.1.jar
+    # 1. Kafka Connectors (cho Bronze layer)
+    curl -L -O https://repo.maven.apache.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.4.3/spark-sql-kafka-0-10_2.12-3.4.3.jar && \
+    curl -L -O https://repo.maven.apache.org/maven2/org/apache/spark/spark-token-provider-kafka-0-10_2.12/3.4.3/spark-token-provider-kafka-0-10_2.12-3.4.3.jar && \
+    curl -L -O https://repo.maven.apache.org/maven2/org/apache/kafka/kafka-clients/3.4.1/kafka-clients-3.4.1.jar && \
+    curl -L -O https://repo.maven.apache.org/maven2/org/apache/commons/commons-pool2/2.11.1/commons-pool2-2.11.1.jar && \
+    # 2. AWS / MinIO Connectors (cho Bronze & Silver layer)
+    curl -L -O https://repo.maven.apache.org/maven2/org/apache/hadoop/hadoop-aws/3.3.4/hadoop-aws-3.3.4.jar && \
+    curl -L -O https://repo.maven.apache.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.532/aws-java-sdk-bundle-1.12.532.jar && \
+    # 3. PostgreSQL Connector (cho Gold layer)
+    curl -L -O https://repo.maven.apache.org/maven2/org/postgresql/postgresql/42.6.0/postgresql-42.6.0.jar
+
+RUN pip install python-dotenv
 
 WORKDIR /app
 USER 1001

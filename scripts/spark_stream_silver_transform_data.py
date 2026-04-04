@@ -18,15 +18,20 @@ MINIO_CONF = {
 }
 
 def create_spark_session():
-    return SparkSession.builder \
+    builder = SparkSession.builder \
         .appName("BinanceSilverTransform") \
-        .config("spark.hadoop.fs.s3a.endpoint", MINIO_CONF["endpoint"]) \
-        .config("spark.hadoop.fs.s3a.access.key", MINIO_CONF["access_key"]) \
-        .config("spark.hadoop.fs.s3a.secret.key", MINIO_CONF["secret_key"]) \
-        .config("spark.hadoop.fs.s3a.path.style.access", "true") \
-        .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
-        .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false") \
-        .getOrCreate()
+        .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.4")
+    
+    if MINIO_CONF["endpoint"]:
+        builder = builder \
+            .config("spark.hadoop.fs.s3a.endpoint", MINIO_CONF["endpoint"]) \
+            .config("spark.hadoop.fs.s3a.access.key", MINIO_CONF["access_key"]) \
+            .config("spark.hadoop.fs.s3a.secret.key", MINIO_CONF["secret_key"]) \
+            .config("spark.hadoop.fs.s3a.path.style.access", "true") \
+            .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
+            .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false")
+            
+    return builder.getOrCreate()
 
 def main():
     spark = create_spark_session()

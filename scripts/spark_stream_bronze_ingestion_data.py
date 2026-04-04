@@ -17,16 +17,21 @@ KAFKA_TOPIC = "crypto_trade_price_1"
 
 
 def create_spark_session():
-    return SparkSession.builder \
+    builder = SparkSession.builder \
         .appName("CryptoBronzeIngestion") \
         .master("local[*]") \
-        .config("spark.hadoop.fs.s3a.endpoint", MINIO_CONF["endpoint"]) \
-        .config("spark.hadoop.fs.s3a.access.key", MINIO_CONF["access_key"]) \
-        .config("spark.hadoop.fs.s3a.secret.key", MINIO_CONF["secret_key"]) \
-        .config("spark.hadoop.fs.s3a.path.style.access", "true") \
-        .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
-        .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false") \
-        .getOrCreate()
+        .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.3,org.apache.hadoop:hadoop-aws:3.3.4")
+    
+    if MINIO_CONF["endpoint"]:
+        builder = builder \
+            .config("spark.hadoop.fs.s3a.endpoint", MINIO_CONF["endpoint"]) \
+            .config("spark.hadoop.fs.s3a.access.key", MINIO_CONF["access_key"]) \
+            .config("spark.hadoop.fs.s3a.secret.key", MINIO_CONF["secret_key"]) \
+            .config("spark.hadoop.fs.s3a.path.style.access", "true") \
+            .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
+            .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false")
+            
+    return builder.getOrCreate()
 
 def main():
     spark = create_spark_session()
