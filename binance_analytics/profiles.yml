@@ -1,0 +1,12 @@
+binance_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: postgres
+      user: admin
+      password: adminpassword
+      port: 5432
+      dbname: warehouse_db
+      schema: public
+      threads: 1
