@@ -43,14 +43,14 @@ SELECT
     s.high_24h,
     s.low_24h,
     ROUND(
-        (l.close_price - f.open_price) / NULLIF(f.open_price, 0) * 100, 2
+        ((l.close_price - f.open_price) / NULLIF(f.open_price, 0) * 100)::numeric, 2
     )                                           AS price_change_pct_24h,
     l.close_price - f.open_price                AS price_change_24h,
     s.volume_24h,
     s.buy_volume_24h,
     s.sell_volume_24h,
     ROUND(
-        s.buy_volume_24h / NULLIF(s.volume_24h, 0) * 100, 2
+        (s.buy_volume_24h / NULLIF(s.volume_24h, 0) * 100)::numeric, 2
     )                                           AS buy_ratio_pct,
     s.total_trades_24h,
     l.candle_start_time                         AS last_updated
