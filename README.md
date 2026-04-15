@@ -10,16 +10,17 @@ This project is a comprehensive, production-grade **Data Engineering Pipeline** 
 
 The platform architecture is built to support both real-time streaming and batch processing workflows.
 
-![Data Lake Architecture](assets/binance_datalake.png)
+![Data Lake Architecture](assets/overall_architecture.png)
 
 ### Data Engineering Snapshots
 
 <div align="center">
-  <img src="assets/binace4.png" width="48%" style="border-radius: 8px; margin: 1%;" alt="Real-time Processing / Streaming Data">
+  <img src="assets/binance4.png" width="48%" style="border-radius: 8px; margin: 1%;" alt="Real-time Processing / Streaming Data">
   <img src="assets/binance2.png" width="48%" style="border-radius: 8px; margin: 1%;" alt="Airflow Orchestration (DAGs)">
 </div>
 <div align="center">
-  <img src="assets/binance3.png" width="80%" style="border-radius: 8px; margin-top: 10px;" alt="Data Transformations & Analytics Dashboard">
+  <img src="assets/binance3.png" width="48%" style="border-radius: 8px; margin: 1%;" alt="Pipeline Health Dashboard">
+  <img src="assets/binance_datalake.png" width="48%" style="border-radius: 8px; margin: 1%;" alt="Market Overview Dashboard">
 </div>
 
 ---
